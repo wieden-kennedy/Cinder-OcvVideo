@@ -109,7 +109,7 @@ bool OcvVideoPlayer::load( const fs::path& filepath )
 {
 	unload();
 	if ( mCapture == nullptr ) {
-		mCapture = new cv::VideoCapture();
+		mCapture = VideoCaptureRef( new cv::VideoCapture() );
 	}
 	if ( mCapture != nullptr && mCapture->open( filepath.string() ) && mCapture->isOpened() ) {
 		int32_t cc		= static_cast<int32_t>( mCapture->get( CV_CAP_PROP_FOURCC ) );
@@ -177,7 +177,7 @@ void OcvVideoPlayer::unload()
 	stop();
 	if ( mCapture != nullptr && mLoaded ) {
 		mCapture->release();
-		delete mCapture;
+		mCapture.reset();
 		mCapture = nullptr;
 	}
 	mCodec			= "";

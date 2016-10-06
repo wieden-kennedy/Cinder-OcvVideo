@@ -44,7 +44,8 @@
 #include <chrono>
 #include <string>
 
-typedef std::chrono::high_resolution_clock::time_point time_point;
+typedef std::shared_ptr<cv::VideoCapture>				VideoCaptureRef;
+typedef std::chrono::high_resolution_clock::time_point	time_point;
 
 class OcvVideoPlayer
 {
@@ -87,7 +88,7 @@ public:
 	void					setPause( bool resume );
 	void					setSpeed( float v );
 protected:
-	cv::VideoCapture*		mCapture		= nullptr;
+	VideoCaptureRef			mCapture		= nullptr;
 
 	std::string				mCodec;
 	double					mDuration		= 0.0;
