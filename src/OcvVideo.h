@@ -87,7 +87,7 @@ public:
 	void					setPause( bool resume );
 	void					setSpeed( float v );
 protected:
-	static cv::VideoCapture	sCapture;
+	cv::VideoCapture*		mCapture		= nullptr;
 
 	std::string				mCodec;
 	double					mDuration		= 0.0;

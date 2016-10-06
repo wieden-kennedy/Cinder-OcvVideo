@@ -40,8 +40,6 @@
 using namespace ci;
 using namespace std;
 
-cv::VideoCapture OcvVideoPlayer::sCapture;
-
 OcvVideoPlayer::OcvVideoPlayer()
 : mCodec( "" ), mFilePath( "" ), mSize( ivec2( 0 ) )
 {
@@ -54,13 +52,12 @@ OcvVideoPlayer::OcvVideoPlayer( const OcvVideoPlayer& rhs )
 
 OcvVideoPlayer::~OcvVideoPlayer()
 {
-	if ( sCapture.isOpened() ) {
-		sCapture.release();
-	}
+	unload();
 }
 
 OcvVideoPlayer& OcvVideoPlayer::operator=( const OcvVideoPlayer& rhs )
 {
+	mCapture		= rhs.mCapture;
 	mCodec			= rhs.mCodec;
 	mDuration		= rhs.mDuration;
 	mElapsedFrames	= rhs.mElapsedFrames;
@@ -101,7 +98,7 @@ Surface8uRef OcvVideoPlayer::createSurface()
 {
 	if ( mLoaded ) {
 		cv::Mat frame;
-		if ( sCapture.retrieve( frame ) ) {
+		if ( mCapture->retrieve( frame ) ) {
 			return Surface8u::create( fromOcv( frame ) );
 		}
 	}
@@ -111,8 +108,11 @@ Surface8uRef OcvVideoPlayer::createSurface()
 bool OcvVideoPlayer::load( const fs::path& filepath )
 {
 	unload();
-	if ( sCapture.open( filepath.string() ) && sCapture.isOpened() ) {
-		int32_t cc		= static_cast<int32_t>( sCapture.get( CV_CAP_PROP_FOURCC ) );
+	if ( mCapture == nullptr ) {
+		mCapture = new cv::VideoCapture();
+	}
+	if ( mCapture != nullptr && mCapture->open( filepath.string() ) && mCapture->isOpened() ) {
+		int32_t cc		= static_cast<int32_t>( mCapture->get( CV_CAP_PROP_FOURCC ) );
 		char codec[]	= {
 			(char)(		cc & 0X000000FF ), 
 			(char)( (	cc & 0X0000FF00 ) >> 8 ),
@@ -122,10 +122,10 @@ bool OcvVideoPlayer::load( const fs::path& filepath )
 		mCodec			= string( codec );
 
 		mFilePath	= filepath;
-		mFrameRate	= sCapture.get( CV_CAP_PROP_FPS );
-		mNumFrames	= (uint32_t)sCapture.get( CV_CAP_PROP_FRAME_COUNT );
-		mSize.x		= (int32_t)sCapture.get( CV_CAP_PROP_FRAME_WIDTH );
-		mSize.y		= (int32_t)sCapture.get( CV_CAP_PROP_FRAME_HEIGHT );
+		mFrameRate	= mCapture->get( CV_CAP_PROP_FPS );
+		mNumFrames	= (uint32_t)mCapture->get( CV_CAP_PROP_FRAME_COUNT );
+		mSize.x		= (int32_t)mCapture->get( CV_CAP_PROP_FRAME_WIDTH );
+		mSize.y		= (int32_t)mCapture->get( CV_CAP_PROP_FRAME_HEIGHT );
 
 		if ( mFrameRate > 0.0 ) {
 			mDuration		= (double)mNumFrames / mFrameRate;
@@ -146,9 +146,9 @@ void OcvVideoPlayer::play()
 
 void OcvVideoPlayer::seek( double seconds )
 {
-	if ( mLoaded ) {
+	if ( mCapture != nullptr && mLoaded ) {
 		double millis	= clamp( seconds, 0.0, mDuration ) * 1000.0;
-		sCapture.set( CV_CAP_PROP_POS_MSEC, millis );
+		mCapture->set( CV_CAP_PROP_POS_MSEC, millis );
 		mGrabTime		= chrono::high_resolution_clock::now();
 		mPosition		= millis / mDuration;
 		mElapsedFrames	= (uint32_t)( mPosition * (double)mNumFrames );
@@ -175,8 +175,10 @@ void OcvVideoPlayer::stop()
 void OcvVideoPlayer::unload()
 {
 	stop();
-	if ( mLoaded ) {
-		sCapture.release();
+	if ( mCapture != nullptr && mLoaded ) {
+		mCapture->release();
+		delete mCapture;
+		mCapture = nullptr;
 	}
 	mCodec			= "";
 	mFilePath		= fs::path( "" );
@@ -189,16 +191,16 @@ void OcvVideoPlayer::unload()
 
 bool OcvVideoPlayer::update()
 {
-	if ( mLoaded && mPlaying && mNumFrames > 0 && mDuration > 0.0 ) {
+	if ( mCapture != nullptr && mLoaded && mPlaying && mNumFrames > 0 && mDuration > 0.0 ) {
 		auto now				= chrono::high_resolution_clock::now();
 		double d				= chrono::duration_cast<chrono::duration<double>>( now - mGrabTime ).count();
-		double nextFrame		= sCapture.get( CV_CAP_PROP_POS_FRAMES );
+		double nextFrame		= mCapture->get( CV_CAP_PROP_POS_FRAMES );
 		bool loop = mLoop && (uint32_t)nextFrame == mNumFrames - 1;
-		if ( d >= mFrameDuration / mSpeed && sCapture.grab() ) {
+		if ( d >= mFrameDuration / mSpeed && mCapture->grab() ) {
 			mElapsedFrames		= (uint32_t)nextFrame;
-			mElapsedSeconds		= sCapture.get( CV_CAP_PROP_POS_MSEC ) * 0.001;
+			mElapsedSeconds		= mCapture->get( CV_CAP_PROP_POS_MSEC ) * 0.001;
 			mGrabTime			= now;
-			mPosition			= sCapture.get( CV_CAP_PROP_POS_AVI_RATIO );
+			mPosition			= mCapture->get( CV_CAP_PROP_POS_AVI_RATIO );
 			if ( loop ) {
 				seek( 0.0 );
 			}
