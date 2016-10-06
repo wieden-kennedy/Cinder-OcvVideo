@@ -37,8 +37,6 @@
 
 #include "OcvVideo.h"
 
-#include "cinder/Log.h"
-
 using namespace ci;
 using namespace std;
 
@@ -149,16 +147,12 @@ void OcvVideoPlayer::play()
 void OcvVideoPlayer::seek( double seconds )
 {
 	if ( mLoaded ) {
-		try {
-			double millis	= clamp( seconds, 0.0, mDuration ) * 1000.0;
-			sCapture.set( CV_CAP_PROP_POS_MSEC, millis );
-			mGrabTime		= chrono::high_resolution_clock::now();
-			mPosition		= millis / mDuration;
-			mElapsedFrames	= (uint32_t)( mPosition * (double)mNumFrames );
-			mElapsedSeconds	= millis * 0.001;
-		} catch ( ... ) {
-			CI_LOG_V( "Unable to stop capture" );
-		}
+		double millis	= clamp( seconds, 0.0, mDuration ) * 1000.0;
+		sCapture.set( CV_CAP_PROP_POS_MSEC, millis );
+		mGrabTime		= chrono::high_resolution_clock::now();
+		mPosition		= millis / mDuration;
+		mElapsedFrames	= (uint32_t)( mPosition * (double)mNumFrames );
+		mElapsedSeconds	= millis * 0.001;
 	}
 }
 
