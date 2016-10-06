@@ -1,0 +1,8 @@
+# Windows cruft
+.vs
+build/
+*.suo
+*.ncb
+*.sdf
+Debug/
+Release/
