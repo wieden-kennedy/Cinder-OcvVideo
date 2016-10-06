@@ -89,7 +89,6 @@ public:
 	void					setSpeed( float v );
 protected:
 	VideoCaptureRef			mCapture		= nullptr;
-
 	std::string				mCodec;
 	double					mDuration		= 0.0;
 	uint32_t				mElapsedFrames	= 0;
