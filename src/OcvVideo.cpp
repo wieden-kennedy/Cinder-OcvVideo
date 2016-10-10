@@ -147,7 +147,7 @@ void OcvVideoPlayer::play()
 void OcvVideoPlayer::seek( double seconds )
 {
 	if ( mCapture != nullptr && mLoaded ) {
-		double millis	= clamp( seconds, 0.0, mDuration ) * 1000.0;
+		double millis	= math<double>::clamp( seconds, 0.0, mDuration ) * 1000.0;
 		mCapture->set( CV_CAP_PROP_POS_MSEC, millis );
 		mGrabTime		= chrono::high_resolution_clock::now();
 		mPosition		= millis / mDuration;
