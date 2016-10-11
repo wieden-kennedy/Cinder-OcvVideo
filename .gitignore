@@ -1,4 +1,3 @@
-# Windows cruft
 .vs
 build/
 *.suo
@@ -6,3 +5,11 @@ build/
 *.sdf
 Debug/
 Release/
+
+*.pbxuser
+*.mode1v3
+*.mode2v3
+*.user
+*.xcworkspace/
+*xcuserdata/
+.DS_Store
