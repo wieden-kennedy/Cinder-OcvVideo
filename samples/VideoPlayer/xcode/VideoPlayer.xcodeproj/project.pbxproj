@@ -19,11 +19,26 @@
 		5323E6B20EAFCA74003A9687 /* CoreVideo.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 5323E6B10EAFCA74003A9687 /* CoreVideo.framework */; };
 		8D11072F0486CEB800E47090 /* Cocoa.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 1058C7A1FEA54F0111CA2CBB /* Cocoa.framework */; };
 		AEA1B70B1DAD6084005BAC03 /* OcvVideo.cpp in Sources */ = {isa = PBXBuildFile; fileRef = AEA1B7091DAD6084005BAC03 /* OcvVideo.cpp */; };
-		AEAACC091DAD624300E9EF73 /* libopencv_imgcodecs.3.0.0.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = AEAACC081DAD624300E9EF73 /* libopencv_imgcodecs.3.0.0.dylib */; };
+		AECFAA3A1DAD65D900BCFBAB /* QTKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = AECFAA391DAD65D900BCFBAB /* QTKit.framework */; };
+		AECFAA3C1DAD66C300BCFBAB /* libopencv_imgcodecs.3.0.0.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = AECFAA3B1DAD66C300BCFBAB /* libopencv_imgcodecs.3.0.0.dylib */; };
+		AECFAA3F1DAD6A6F00BCFBAB /* libopencv_imgcodecs.3.0.0.dylib in CopyFiles */ = {isa = PBXBuildFile; fileRef = AECFAA3B1DAD66C300BCFBAB /* libopencv_imgcodecs.3.0.0.dylib */; };
 		C89164FF9B354C58949B89CE /* CinderApp.icns in Resources */ = {isa = PBXBuildFile; fileRef = 9C2B0BE9D9474B5484D3FF63 /* CinderApp.icns */; };
 		D5AA73947B9842449A3F2D54 /* VideoPlayerApp.cpp in Sources */ = {isa = PBXBuildFile; fileRef = A6FF297A04524E25BEC83155 /* VideoPlayerApp.cpp */; };
 		FA8E46649BBE4C17A1F4FE1E /* OpenCL.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 0BC960EBC4B9420CB3E53571 /* OpenCL.framework */; };
 /* End PBXBuildFile section */
+
+/* Begin PBXCopyFilesBuildPhase section */
+		AECFAA3E1DAD6A6200BCFBAB /* CopyFiles */ = {
+			isa = PBXCopyFilesBuildPhase;
+			buildActionMask = 2147483647;
+			dstPath = "";
+			dstSubfolderSpec = 6;
+			files = (
+				AECFAA3F1DAD6A6F00BCFBAB /* libopencv_imgcodecs.3.0.0.dylib in CopyFiles */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXCopyFilesBuildPhase section */
 
 /* Begin PBXFileReference section */
 		006D720219952D00008149E2 /* AVFoundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AVFoundation.framework; path = System/Library/Frameworks/AVFoundation.framework; sourceTree = SDKROOT; };
@@ -48,7 +63,8 @@
 		A6FF297A04524E25BEC83155 /* VideoPlayerApp.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; name = VideoPlayerApp.cpp; path = ../src/VideoPlayerApp.cpp; sourceTree = "<group>"; };
 		AEA1B7091DAD6084005BAC03 /* OcvVideo.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = OcvVideo.cpp; path = ../../../src/OcvVideo.cpp; sourceTree = "<group>"; };
 		AEA1B70A1DAD6084005BAC03 /* OcvVideo.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = OcvVideo.h; path = ../../../src/OcvVideo.h; sourceTree = "<group>"; };
-		AEAACC081DAD624300E9EF73 /* libopencv_imgcodecs.3.0.0.dylib */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.dylib"; name = libopencv_imgcodecs.3.0.0.dylib; path = ../../../lib/macosx/libopencv_imgcodecs.3.0.0.dylib; sourceTree = "<group>"; };
+		AECFAA391DAD65D900BCFBAB /* QTKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = QTKit.framework; path = System/Library/Frameworks/QTKit.framework; sourceTree = SDKROOT; };
+		AECFAA3B1DAD66C300BCFBAB /* libopencv_imgcodecs.3.0.0.dylib */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.dylib"; name = libopencv_imgcodecs.3.0.0.dylib; path = ../../../lib/macosx/libopencv_imgcodecs.3.0.0.dylib; sourceTree = "<group>"; };
 		B87CC0ADFC75438389E937E4 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
@@ -57,6 +73,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				AECFAA3A1DAD65D900BCFBAB /* QTKit.framework in Frameworks */,
 				006D720419952D00008149E2 /* AVFoundation.framework in Frameworks */,
 				006D720519952D00008149E2 /* CoreMedia.framework in Frameworks */,
 				8D11072F0486CEB800E47090 /* Cocoa.framework in Frameworks */,
@@ -64,10 +81,10 @@
 				5323E6B20EAFCA74003A9687 /* CoreVideo.framework in Frameworks */,
 				00B784B30FF439BC000DE1D7 /* Accelerate.framework in Frameworks */,
 				00B784B40FF439BC000DE1D7 /* AudioToolbox.framework in Frameworks */,
-				AEAACC091DAD624300E9EF73 /* libopencv_imgcodecs.3.0.0.dylib in Frameworks */,
 				00B784B50FF439BC000DE1D7 /* AudioUnit.framework in Frameworks */,
 				00B784B60FF439BC000DE1D7 /* CoreAudio.framework in Frameworks */,
 				00B9955A1B128DF400A5C623 /* IOKit.framework in Frameworks */,
+				AECFAA3C1DAD66C300BCFBAB /* libopencv_imgcodecs.3.0.0.dylib in Frameworks */,
 				00B9955B1B128DF400A5C623 /* IOSurface.framework in Frameworks */,
 				FA8E46649BBE4C17A1F4FE1E /* OpenCL.framework in Frameworks */,
 			);
@@ -96,6 +113,7 @@
 		1058C7A0FEA54F0111CA2CBB /* Linked Frameworks */ = {
 			isa = PBXGroup;
 			children = (
+				AECFAA391DAD65D900BCFBAB /* QTKit.framework */,
 				006D720219952D00008149E2 /* AVFoundation.framework */,
 				006D720319952D00008149E2 /* CoreMedia.framework */,
 				00B784AF0FF439BC000DE1D7 /* Accelerate.framework */,
@@ -114,6 +132,7 @@
 		1058C7A2FEA54F0111CA2CBB /* Other Frameworks */ = {
 			isa = PBXGroup;
 			children = (
+				0BC960EBC4B9420CB3E53571 /* OpenCL.framework */,
 				29B97324FDCFA39411CA2CEA /* AppKit.framework */,
 				29B97325FDCFA39411CA2CEA /* Foundation.framework */,
 			);
@@ -170,10 +189,9 @@
 		29B97323FDCFA39411CA2CEA /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
-				AEAACC081DAD624300E9EF73 /* libopencv_imgcodecs.3.0.0.dylib */,
+				AECFAA3B1DAD66C300BCFBAB /* libopencv_imgcodecs.3.0.0.dylib */,
 				1058C7A0FEA54F0111CA2CBB /* Linked Frameworks */,
 				1058C7A2FEA54F0111CA2CBB /* Other Frameworks */,
-				0BC960EBC4B9420CB3E53571 /* OpenCL.framework */,
 			);
 			name = Frameworks;
 			sourceTree = "<group>";
@@ -213,6 +231,7 @@
 				8D1107290486CEB800E47090 /* Resources */,
 				8D11072C0486CEB800E47090 /* Sources */,
 				8D11072E0486CEB800E47090 /* Frameworks */,
+				AECFAA3E1DAD6A6200BCFBAB /* CopyFiles */,
 			);
 			buildRules = (
 			);
@@ -291,9 +310,13 @@
 					"$(inherited)",
 				);
 				GCC_SYMBOLS_PRIVATE_EXTERN = NO;
-				HEADER_SEARCH_PATHS = "\"$(CINDER_PATH)/include\"";
+				HEADER_SEARCH_PATHS = (
+					"\"$(CINDER_PATH)/include\"",
+					../../../src,
+				);
 				INFOPLIST_FILE = Info.plist;
 				INSTALL_PATH = "$(HOME)/Applications";
+				LD_RUNPATH_SEARCH_PATHS = "@loader_path";
 				LIBRARY_SEARCH_PATHS = "";
 				OTHER_LDFLAGS = (
 					"\"$(CINDER_PATH)/lib/libcinder_d.a\"",
@@ -341,9 +364,13 @@
 					"$(inherited)",
 				);
 				GCC_SYMBOLS_PRIVATE_EXTERN = NO;
-				HEADER_SEARCH_PATHS = "\"$(CINDER_PATH)/include\"";
+				HEADER_SEARCH_PATHS = (
+					"\"$(CINDER_PATH)/include\"",
+					../../../src,
+				);
 				INFOPLIST_FILE = Info.plist;
 				INSTALL_PATH = "$(HOME)/Applications";
+				LD_RUNPATH_SEARCH_PATHS = "@loader_path";
 				LIBRARY_SEARCH_PATHS = "";
 				OTHER_LDFLAGS = (
 					"\"$(CINDER_PATH)/lib/libcinder.a\"",
