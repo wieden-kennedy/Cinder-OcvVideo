@@ -195,7 +195,11 @@ bool OcvVideoPlayer::update()
 		auto now				= chrono::high_resolution_clock::now();
 		double d				= chrono::duration_cast<chrono::duration<double>>( now - mGrabTime ).count();
 		double nextFrame		= mCapture->get( CV_CAP_PROP_POS_FRAMES );
-		bool loop = mLoop && (uint32_t)nextFrame == mNumFrames - 1;
+
+		bool end = (uint32_t)nextFrame == mNumFrames - 1;
+		if (!mLoop && end) return false;
+		bool loop = mLoop && end;
+
 		if ( d >= mFrameDuration / mSpeed && mCapture->grab() ) {
 			mElapsedFrames		= (uint32_t)nextFrame;
 			mElapsedSeconds		= mCapture->get( CV_CAP_PROP_POS_MSEC ) * 0.001;
